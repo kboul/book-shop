@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from "express";
 import { createConnection } from "mysql2";
+import cors from "cors";
 
 const app: Application = express();
 
@@ -12,6 +13,8 @@ const db = createConnection({
 
 // it allows us to send any json file using client
 app.use(express.json());
+// allow backend server to allow an app to use its api
+app.use(cors());
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello");

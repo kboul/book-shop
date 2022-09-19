@@ -1,0 +1,8 @@
+POST http://localhost:5000/api/books
+Content-Type: application/json
+
+{
+    "title": "Harry Potter - and the sourcerers stone",
+    "description": "Rescued from the outrageous neglect of his aunt and uncle, a young boy with a great destiny proves his worth...",
+    "cover": "https://images-na.ssl-images-amazon.com/images/I/91ocU8970hL.jpg"
+}

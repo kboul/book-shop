@@ -1,22 +1,38 @@
 import express, { Application, Request, Response } from "express";
-import mysql from "mysql2";
+import { createConnection } from "mysql2";
 
 const app: Application = express();
 
-const db = mysql.createConnection({
+const db = createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "book_shop",
+  database: "book_shop"
 });
+
+// it allows us to send any json file using client
+app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello");
 });
 
-app.get("/books", (req: Request, res: Response) => {
+const rootEndpoint = "/api/books";
+
+app.get(rootEndpoint, (req: Request, res: Response) => {
   const query = "SELECT * FROM books";
+
   db.query(query, (error, data) => {
+    if (error) return res.json(error);
+    return res.json(data);
+  });
+});
+
+app.post(rootEndpoint, (req: Request, res: Response) => {
+  const query = "INSERT INTO books (`title`, `description`,`cover`) VALUES (?)";
+  const values = [req.body.title, req.body.description, req.body.cover];
+
+  db.query(query, [values], (error, data) => {
     if (error) return res.json(error);
     return res.json(data);
   });

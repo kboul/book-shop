@@ -1,14 +1,17 @@
 import express, { Application, Request, Response } from "express";
 import { createConnection } from "mysql2";
 import cors from "cors";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app: Application = express();
 
 const db = createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "book_shop"
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE
 });
 
 // it allows us to send any json file using client

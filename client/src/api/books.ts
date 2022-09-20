@@ -1,5 +1,8 @@
 import client from "./client";
 
-const getAllBooks = async () => client.get("/api/books");
+const getAllBooks = async () => {
+  const response = client.get("/api/books");
+  return (await response).data;
+};
 
 export { getAllBooks };

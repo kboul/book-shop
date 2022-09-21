@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { getAllBooks } from "../../api/books";
 import { Book } from "./models";
-import { truncate } from "./utils";
+import { truncate } from "../../utils";
 import classname from "./styles";
 
 export default function Books() {
@@ -33,7 +33,7 @@ export default function Books() {
           </div>
         ))}
       </div>
-      <button className={classname.addNewBook}>
+      <button className={classname.addNewBookBtn}>
         <Link to="/add-book">Add a new book</Link>
       </button>
     </>

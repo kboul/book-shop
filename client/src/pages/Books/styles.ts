@@ -7,7 +7,7 @@ const classname = {
   description: "mx-2 my-2 text-sm",
   price: "font-bold text-sm text-center",
   error: "bg-red-600",
-  addNewBook:
+  addNewBookBtn:
     "flex m-auto my-2 bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 border rounded-full"
 };
 

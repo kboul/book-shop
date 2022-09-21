@@ -1,13 +1,23 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import { TrashIcon } from "@heroicons/react/outline";
 
-import { getAllBooks } from "../../api/books";
+import { deleteBook, getAllBooks } from "../../api/books";
 import { Book } from "./models";
 import { truncate } from "../../utils";
 import classname from "./styles";
 
 export default function Books() {
   const { isLoading, error, data: books } = useQuery(["books"], getAllBooks);
+
+  const queryClient = useQueryClient();
+
+  const deleteBookMutation = useMutation(deleteBook, {
+    onSuccess: () => {
+      // invalidates the cache and triggers a refetch
+      queryClient.invalidateQueries(["books"]);
+    }
+  });
 
   if (isLoading) return <>Loading..</>;
   if (error)
@@ -16,6 +26,11 @@ export default function Books() {
         An error has occured when trying to get the books list
       </h3>
     );
+
+  const handleBookDelete = (bookId: number) => () => {
+    deleteBookMutation.mutate(bookId);
+  };
+
   return (
     <>
       <h1 className={classname.header}>Book Shop</h1>
@@ -30,6 +45,10 @@ export default function Books() {
               {truncate(book.description)}
             </p>
             <p className={classname.price}>{book.price} euro</p>
+            <TrashIcon
+              className={classname.deleteBtn}
+              onClick={handleBookDelete(book.id)}
+            />
           </div>
         ))}
       </div>

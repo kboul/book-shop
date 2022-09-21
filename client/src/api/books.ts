@@ -13,4 +13,14 @@ const addBook = async (book: Book) => {
   return (await response).data;
 };
 
-export { getAllBooks, addBook };
+const updateBook = async (bookId: number) => {
+  const response = client.put(`${rootEndpoint}/${bookId}`);
+  return (await response).data;
+};
+
+const deleteBook = async (bookId: number) => {
+  const response = client.delete(`${rootEndpoint}/${bookId}`);
+  return (await response).data;
+};
+
+export { getAllBooks, addBook, updateBook, deleteBook };

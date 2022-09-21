@@ -50,4 +50,14 @@ app.post(rootEndpoint, (req: Request, res: Response) => {
   });
 });
 
+app.delete(`${rootEndpoint}/:id`, (req: Request, res: Response) => {
+  const bookId = req.params.id;
+  const query = "DELETE FROM books WHERE id = ?";
+
+  db.query(query, [bookId], (error) => {
+    if (error) return res.json(error);
+    return res.json("Book has been deleted successfully.");
+  });
+});
+
 app.listen(5000, () => console.log(`Server running on port 5000`));

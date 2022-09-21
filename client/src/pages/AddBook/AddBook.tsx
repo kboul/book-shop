@@ -1,19 +1,22 @@
 import { ChangeEvent, MouseEvent, useId, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 import { firstLetterUppercase } from "../../utils";
 import { getType, isPrice } from "./utils";
+import { addBook } from "../../api/books";
+import { Book } from "../Books/models";
 import { initialState, inputNames } from "./constants";
 import classname from "./styles";
 
-interface BookForm {
-  [key: string]: any;
-}
-
 export default function AddBook() {
-  const [book, setBook] = useState<BookForm>(initialState);
+  const id = useId();
+  const navigate = useNavigate();
+
+  const [book, setBook] = useState(initialState);
   const [priceInvalid, setPriceInvalid] = useState(false);
 
-  const id = useId();
+  const addBookMutation = useMutation(addBook);
 
   const handleInputChange =
     (inputName: string) => (e: ChangeEvent<HTMLInputElement>) => {
@@ -23,10 +26,19 @@ export default function AddBook() {
       setBook((prevState) => ({ ...prevState, [inputName]: e.target.value }));
     };
 
-  const handleClick = (
+  const { title, description, price, cover } = book;
+
+  const handleClick = async (
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
   ) => {
     e.preventDefault();
+
+    if (!title || !description || !price || !cover)
+      return alert("Please fill all inputs");
+
+    addBookMutation.mutate(book);
+    setBook(initialState);
+    navigate("/");
   };
 
   return (
@@ -42,12 +54,12 @@ export default function AddBook() {
               <div className="relative">
                 <input
                   className={classname.input}
-                  onChange={handleInputChange(inputName)}
                   min={0}
                   name={inputName}
+                  onChange={handleInputChange(inputName)}
                   placeholder={`Enter a ${inputName}`}
                   type={getType(inputName)}
-                  value={book[inputName as keyof BookForm]}
+                  value={book[inputName as keyof Book]}
                 />
               </div>
             </div>

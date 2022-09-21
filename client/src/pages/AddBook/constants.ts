@@ -1,10 +1,11 @@
 const inputNames = ["cover", "title", "description", "price"];
 
 const initialState = {
+  id: new Date().getTime(),
   title: "",
   description: "",
-  price: "",
-  cover: ""
+  cover: "",
+  price: ""
 };
 
 export { initialState, inputNames };

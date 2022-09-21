@@ -35,8 +35,14 @@ app.get(rootEndpoint, (req: Request, res: Response) => {
 });
 
 app.post(rootEndpoint, (req: Request, res: Response) => {
-  const query = "INSERT INTO books (`title`, `description`,`cover`) VALUES (?)";
-  const values = [req.body.title, req.body.description, req.body.cover];
+  const query =
+    "INSERT INTO books (`title`, `description`,`cover`,`price`) VALUES (?)";
+  const values = [
+    req.body.title,
+    req.body.description,
+    req.body.cover,
+    req.body.price
+  ];
 
   db.query(query, [values], (error, data) => {
     if (error) return res.json(error);

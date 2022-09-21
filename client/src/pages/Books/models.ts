@@ -3,7 +3,7 @@ interface Book {
   title: string;
   description: string;
   cover: string;
-  price: number;
+  price: number | string;
 }
 
 export type { Book };

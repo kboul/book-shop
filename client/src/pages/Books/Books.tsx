@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
-import { TrashIcon } from "@heroicons/react/outline";
+import { Link, useNavigate } from "react-router-dom";
+import { TrashIcon, PencilIcon } from "@heroicons/react/outline";
 
 import { deleteBook, getAllBooks } from "../../api/books";
 import { Book } from "./models";
@@ -11,6 +11,7 @@ export default function Books() {
   const { isLoading, error, data: books } = useQuery(["books"], getAllBooks);
 
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const deleteBookMutation = useMutation(deleteBook, {
     onSuccess: () => {
@@ -27,9 +28,11 @@ export default function Books() {
       </h3>
     );
 
-  const handleBookDelete = (bookId: number) => () => {
+  const handleBookDelete = (bookId: number) => () =>
     deleteBookMutation.mutate(bookId);
-  };
+
+  const handleBookUpdate = (bookId: number) => () =>
+    navigate(`/update-book/${bookId}`);
 
   return (
     <>
@@ -48,6 +51,10 @@ export default function Books() {
             <TrashIcon
               className={classname.deleteBtn}
               onClick={handleBookDelete(book.id)}
+            />
+            <PencilIcon
+              className={classname.editBtn}
+              onClick={handleBookUpdate(book.id)}
             />
           </div>
         ))}

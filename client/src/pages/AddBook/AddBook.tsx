@@ -42,36 +42,34 @@ export default function AddBook() {
   };
 
   return (
-    <>
-      <div className={classname.container}>
-        <div className={classname.addNewBookContainer}>
-          <div className={classname.addNewBookHeader}>Add new book</div>
-          {inputNames.map((inputName) => (
-            <div className="flex flex-col mb-5" key={`${inputName}-${id}`}>
-              <label htmlFor={inputName} className={classname.label}>
-                {firstLetterUppercase(inputName)}
-              </label>
-              <div className="relative">
-                <input
-                  className={classname.input}
-                  min={0}
-                  name={inputName}
-                  onChange={handleInputChange(inputName)}
-                  placeholder={`Enter a ${inputName}`}
-                  type={getType(inputName)}
-                  value={book[inputName as keyof Book]}
-                />
-              </div>
+    <div className={classname.container}>
+      <div className={classname.addNewBookContainer}>
+        <div className={classname.addNewBookHeader}>Add new book</div>
+        {inputNames.map((inputName) => (
+          <div className="flex flex-col mb-5" key={`${inputName}-${id}`}>
+            <label htmlFor={inputName} className={classname.label}>
+              {firstLetterUppercase(inputName)}
+            </label>
+            <div className="relative">
+              <input
+                className={classname.input}
+                min={0}
+                name={inputName}
+                onChange={handleInputChange(inputName)}
+                placeholder={`Enter a ${inputName}`}
+                type={getType(inputName)}
+                value={book[inputName as keyof Book]}
+              />
             </div>
-          ))}
-          <button
-            className={classname.addNewBookBtn}
-            disabled={priceInvalid}
-            onClick={handleClick}>
-            Add new book
-          </button>
-        </div>
+          </div>
+        ))}
+        <button
+          className={classname.addNewBookBtn}
+          disabled={priceInvalid}
+          onClick={handleClick}>
+          Add new book
+        </button>
       </div>
-    </>
+    </div>
   );
 }

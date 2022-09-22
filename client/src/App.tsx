@@ -13,7 +13,7 @@ export default function App() {
         <Routes>
           <Route path="" element={<Books />} />
           <Route path="/add-book" element={<AddBook />} />
-          <Route path="/update-book" element={<UpdateBook />} />
+          <Route path="/update-book/:bookId" element={<UpdateBook />} />
         </Routes>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />

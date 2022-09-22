@@ -9,7 +9,8 @@ const classname = {
   error: "bg-red-600",
   addNewBookBtn:
     "flex m-auto my-2 bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 border rounded-full",
-  deleteBtn: "h-4 w-4 absolute cursor-pointer right-1 top-1"
+  deleteBtn: "h-4 w-4 absolute cursor-pointer right-1 top-1",
+  editBtn: "h-4 w-4 absolute cursor-pointer right-1 top-7"
 };
 
 export default classname;

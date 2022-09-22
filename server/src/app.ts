@@ -34,6 +34,16 @@ app.get(rootEndpoint, (req: Request, res: Response) => {
   });
 });
 
+app.get(`${rootEndpoint}/:id`, (req: Request, res: Response) => {
+  const bookId = req.params.id;
+  const query = "SELECT * FROM books WHERE id = ?";
+
+  db.query(query, [bookId], (error, data) => {
+    if (error) return res.json(error);
+    return res.json(data);
+  });
+});
+
 app.post(rootEndpoint, (req: Request, res: Response) => {
   const query =
     "INSERT INTO books (`title`, `description`,`cover`,`price`) VALUES (?)";
@@ -47,6 +57,23 @@ app.post(rootEndpoint, (req: Request, res: Response) => {
   db.query(query, [values], (error, data) => {
     if (error) return res.json(error);
     return res.json(data);
+  });
+});
+
+app.put(`${rootEndpoint}/:id`, (req: Request, res: Response) => {
+  const bookId = req.params.id;
+  const query =
+    "UPDATE books SET `title` = ?, `description` = ?, `cover` = ?, `price` = ? WHERE id = ?";
+  const values = [
+    req.body.title,
+    req.body.description,
+    req.body.cover,
+    req.body.price
+  ];
+
+  db.query(query, [...values, bookId], (error) => {
+    if (error) return res.json(error);
+    return res.json("Book has been updated successfully.");
   });
 });
 

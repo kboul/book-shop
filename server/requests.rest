@@ -6,3 +6,8 @@ Content-Type: application/json
     "description": "Rescued from the outrageous neglect of his aunt and uncle, a young boy with a great destiny proves his worth...",
     "cover": "https://images-na.ssl-images-amazon.com/images/I/91ocU8970hL.jpg"
 }
+
+###
+
+GET http://localhost:5000/api/books/2
+Content-Type: application/json

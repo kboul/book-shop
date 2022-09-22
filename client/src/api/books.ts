@@ -1,5 +1,5 @@
-import { Book } from "../pages/Books/models";
 import client from "./client";
+import { Book } from "../models";
 
 const rootEndpoint = "/api/books";
 
@@ -8,13 +8,18 @@ const getAllBooks = async () => {
   return (await response).data;
 };
 
+const getBook = async (bookId: number) => {
+  const response = client.get(`${rootEndpoint}/${bookId}`);
+  return (await response).data;
+};
+
 const addBook = async (book: Book) => {
   const response = client.post(rootEndpoint, book);
   return (await response).data;
 };
 
-const updateBook = async (bookId: number) => {
-  const response = client.put(`${rootEndpoint}/${bookId}`);
+const updateBook = async ({ bookId, book }: { bookId: number; book: Book }) => {
+  const response = client.put(`${rootEndpoint}/${bookId}`, book);
   return (await response).data;
 };
 
@@ -23,4 +28,4 @@ const deleteBook = async (bookId: number) => {
   return (await response).data;
 };
 
-export { getAllBooks, addBook, updateBook, deleteBook };
+export { getAllBooks, getBook, addBook, updateBook, deleteBook };

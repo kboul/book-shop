@@ -3,17 +3,24 @@ import { Link, useNavigate } from "react-router-dom";
 import { TrashIcon, PencilIcon } from "@heroicons/react/outline";
 
 import { deleteBook, getAllBooks } from "../../api/books";
-import { Book } from "./models";
+import { Book } from "../../models";
 import { truncate } from "../../utils";
 import classname from "./styles";
 
 export default function Books() {
-  const { isLoading, error, data: books } = useQuery(["books"], getAllBooks);
-
   const queryClient = useQueryClient();
+  const {
+    isLoading,
+    error,
+    data: books
+  } = useQuery(["books"], getAllBooks, {
+    refetchOnMount: true
+  });
+
   const navigate = useNavigate();
 
   const deleteBookMutation = useMutation(deleteBook, {
+    cacheTime: 5000,
     onSuccess: () => {
       // invalidates the cache and triggers a refetch
       queryClient.invalidateQueries(["books"]);

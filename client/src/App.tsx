@@ -4,7 +4,13 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { AddBook, Books, UpdateBook } from "./pages";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false
+    }
+  }
+});
 
 export default function App() {
   return (

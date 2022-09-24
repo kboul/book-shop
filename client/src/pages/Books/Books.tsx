@@ -1,7 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
 import { TrashIcon, PencilIcon } from "@heroicons/react/outline";
+import { toast } from "react-toastify";
 
+import DeleteBookToast from "./DeleteBookToast";
 import { deleteBook, getAllBooks } from "../../api/books";
 import { Book } from "../../models";
 import { truncate } from "../../utils";
@@ -13,16 +15,15 @@ export default function Books() {
     isLoading,
     error,
     data: books
-  } = useQuery(["books"], getAllBooks, {
-    refetchOnMount: true
-  });
+  } = useQuery(["books"], getAllBooks, { refetchOnMount: true });
 
   const navigate = useNavigate();
 
   const deleteBookMutation = useMutation(deleteBook, {
-    onSuccess: () => {
+    onSuccess: (data) => {
       // invalidates the cache and triggers a refetch
       queryClient.invalidateQueries(["books"]);
+      toast.success(data, { position: toast.POSITION.TOP_RIGHT });
     }
   });
 
@@ -34,8 +35,12 @@ export default function Books() {
       </h3>
     );
 
-  const handleBookDelete = (bookId: number) => () =>
-    deleteBookMutation.mutate(bookId);
+  const handleBookDelete = (bookId: number) => () => {
+    toast(
+      <DeleteBookToast onClick={() => deleteBookMutation.mutate(bookId)} />,
+      { autoClose: false }
+    );
+  };
 
   const handleBookUpdate = (bookId: number) => () =>
     navigate(`/update-book/${bookId}`);

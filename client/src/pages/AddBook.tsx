@@ -1,6 +1,7 @@
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { BookForm } from "../components";
 import { addBook } from "../api/books";
@@ -11,7 +12,13 @@ export default function AddBook() {
 
   const [book, setBook] = useState(initialBookState);
 
-  const addBookMutation = useMutation(addBook);
+  const addBookMutation = useMutation(addBook, {
+    onSuccess: (data) => {
+      setBook(initialBookState);
+      navigate("/");
+      toast.success(data, { position: toast.POSITION.TOP_RIGHT });
+    }
+  });
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement>,
@@ -31,8 +38,6 @@ export default function AddBook() {
       return alert("Please fill all inputs");
 
     addBookMutation.mutate(book);
-    setBook(initialBookState);
-    navigate("/");
   };
 
   return (

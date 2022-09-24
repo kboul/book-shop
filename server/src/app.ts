@@ -56,7 +56,7 @@ app.post(rootEndpoint, (req: Request, res: Response) => {
 
   db.query(query, [values], (error, data) => {
     if (error) return res.json(error);
-    return res.json(data);
+    return res.json("Book has been added successfully.");
   });
 });
 

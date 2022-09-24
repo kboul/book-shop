@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 import { BookForm } from "../components";
 import { Book } from "../models";
@@ -22,8 +23,9 @@ export default function UpdateBook() {
   const [book, setBook] = useState<Book>(initialBookState);
 
   const updateBookMutation = useMutation(updateBook, {
-    onSuccess: () => {
+    onSuccess: (data) => {
       navigate("/");
+      toast.success(data, { position: toast.POSITION.TOP_RIGHT });
     }
   });
 

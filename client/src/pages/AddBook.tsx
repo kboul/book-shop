@@ -40,7 +40,7 @@ export default function AddBook() {
       book={book}
       onButtonClick={handleButtonClick}
       onInputChange={handleInputChange}
-      purpose="add"
+      use="add"
     />
   );
 }

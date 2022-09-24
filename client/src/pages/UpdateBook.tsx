@@ -50,7 +50,7 @@ export default function UpdateBook() {
       book={book}
       onButtonClick={handleButtonClick}
       onInputChange={handleInputChange}
-      purpose="update"
+      use="update"
     />
   );
 }

@@ -5,7 +5,7 @@ import { TrashIcon, PencilIcon } from "@heroicons/react/outline";
 import { deleteBook, getAllBooks } from "../../api/books";
 import { Book } from "../../models";
 import { truncate } from "../../utils";
-import classname from "./styles";
+import className from "./styles";
 
 export default function Books() {
   const queryClient = useQueryClient();
@@ -29,7 +29,7 @@ export default function Books() {
   if (isLoading) return <>Loading..</>;
   if (error)
     return (
-      <h3 className={classname.error}>
+      <h3 className={className.error}>
         An error has occured when trying to get the books list
       </h3>
     );
@@ -42,30 +42,30 @@ export default function Books() {
 
   return (
     <>
-      <h1 className={classname.header}>Book Shop</h1>
-      <div className={classname.container}>
+      <h1 className={className.header}>Book Shop</h1>
+      <div className={className.container}>
         {books?.map((book: Book) => (
-          <div className={classname.card} key={book.id}>
+          <div className={className.card} key={book.id}>
             {book.cover && (
-              <img className={classname.img} src={book.cover} alt="cover" />
+              <img className={className.img} src={book.cover} alt="cover" />
             )}
-            <h2 className={classname.title}>{book.title}</h2>
-            <p className={classname.description} title={book.description}>
+            <h2 className={className.title}>{book.title}</h2>
+            <p className={className.description} title={book.description}>
               {truncate(book.description)}
             </p>
-            <p className={classname.price}>{book.price} euro</p>
+            <p className={className.price}>{book.price} euro</p>
             <TrashIcon
-              className={classname.deleteBtn}
+              className={className.deleteBtn}
               onClick={handleBookDelete(book.id)}
             />
             <PencilIcon
-              className={classname.editBtn}
+              className={className.editBtn}
               onClick={handleBookUpdate(book.id)}
             />
           </div>
         ))}
       </div>
-      <button className={classname.addNewBookBtn}>
+      <button className={className.addNewBookBtn}>
         <Link to="/add-book">Add a new book</Link>
       </button>
     </>

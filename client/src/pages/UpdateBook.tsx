@@ -27,7 +27,7 @@ export default function UpdateBook() {
     }
   });
 
-  const handleButtonClick = async (
+  const handleButtonClick = (
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
   ) => {
     e.preventDefault();
@@ -50,7 +50,7 @@ export default function UpdateBook() {
       book={book}
       onButtonClick={handleButtonClick}
       onInputChange={handleInputChange}
-      purpose="update"
+      use="update"
     />
   );
 }
